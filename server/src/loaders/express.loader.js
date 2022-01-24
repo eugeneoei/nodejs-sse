@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser')
 const {
     authenticationController
 } = require('../controllers/authentication.controller')
+const { postController } = require('../controllers/post.controller')
 
 const initialiaseExpress = () => {
     const app = express()
@@ -13,6 +14,7 @@ const initialiaseExpress = () => {
 
     app.use('/api', router)
     authenticationController(router)
+    postController(router)
 
     app.listen(process.env.PORT, () =>
         console.log(`Express Server listening on port ${process.env.PORT}!`)
