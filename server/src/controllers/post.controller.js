@@ -62,7 +62,19 @@ const postController = app => {
     })
 
     router.get('/:id/comments', async (req, res) => {
-        res.send("GET one post's comments success.")
+        try {
+            const postId = req.params.id
+            const query = req.query
+            const comments = await postService.getPostPaginatedComments(
+                postId,
+                query
+            )
+            res.json(comments)
+        } catch (error) {
+            res.status(400).json({
+                error: error.message
+            })
+        }
     })
 
     router.post('/:id/comments', validateCommentCreation, async (req, res) => {
@@ -102,9 +114,3 @@ const postController = app => {
 }
 
 module.exports = { postController }
-
-test = [111, 222, 333]
-
-for (const i of test) {
-    console.log(i)
-}

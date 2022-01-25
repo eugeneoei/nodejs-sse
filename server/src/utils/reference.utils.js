@@ -1,4 +1,4 @@
-COMMENTS_LIMIT = 10
+const { COMMENTS_LIMIT } = require('../constants/comment.constant')
 
 const userReference = () => {
     return {
@@ -7,24 +7,30 @@ const userReference = () => {
     }
 }
 
-const commentReference = () => {
+const commentReference = (options = {}) => {
     return {
         path: 'comments',
         select: ['_id', 'user', 'content', 'createdAt'],
         populate: userReference(),
-        perDocumentLimit: COMMENTS_LIMIT
+        perDocumentLimit: COMMENTS_LIMIT,
+        options: {
+            sort: {
+                createdAt: 'desc'
+            },
+            ...options
+        }
     }
 }
 
-const commentPaginatedReference = page => {
-    return {
-        ...commentReference(),
-        skip: (page - 1) * COMMENTS_LIMIT
-    }
-}
+// const commentPaginatedReference = page => {
+//     return {
+//         ...commentReference(),
+//         skip: (page - 1) * COMMENTS_LIMIT
+//     }
+// }
 
 module.exports = {
     userReference,
-    commentReference,
-    commentPaginatedReference
+    commentReference
+    // commentPaginatedReference
 }

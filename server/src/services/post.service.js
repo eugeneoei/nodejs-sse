@@ -1,9 +1,14 @@
 const { PostRepository } = require('../repositories/post.repository')
-const { formatPosts, formatPost } = require('../utils/formatter.utils')
+const {
+    formatPosts,
+    formatPost,
+    formatComments
+} = require('../utils/formatter.utils')
 const {
     POSTS_FILTERS_MAPPING,
     POST_OPTIONS_MAPPING
 } = require('../constants/post.constant')
+const { COMMENT_OPTIONS_MAPPING } = require('../constants/comment.constant')
 
 class PostService {
     constructor() {
@@ -34,6 +39,19 @@ class PostService {
         })
         const formattedNewPost = formatPost(newPost)
         return formattedNewPost
+    }
+
+    async getPostPaginatedComments(id, query) {
+        const queryOptions = this.generateOptions(
+            query,
+            COMMENT_OPTIONS_MAPPING
+        )
+        const comments = await this.postRepository.getPostPaginatedComments(
+            id,
+            queryOptions
+        )
+        const formattedComments = formatComments(comments)
+        return formattedComments
     }
 
     async updatePostComments(postId, commentId) {

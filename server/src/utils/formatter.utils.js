@@ -53,5 +53,6 @@ module.exports = {
     formatUser,
     formatPosts,
     formatPost,
+    formatComments,
     formatComment
 }

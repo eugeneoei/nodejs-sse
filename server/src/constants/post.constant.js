@@ -1,4 +1,4 @@
-const POSTS_LIMIT = 2
+const POSTS_LIMIT = 3
 const POSTS_FILTERS_MAPPING = {
     userId: {
         property: 'user'
@@ -7,7 +7,7 @@ const POSTS_FILTERS_MAPPING = {
 const POST_OPTIONS_MAPPING = {
     page: {
         property: 'skip',
-        convert: data => POST_LIMIT * (parseInt(data) - 1)
+        convert: data => POSTS_LIMIT * (parseInt(data) - 1)
     }
 }
 
