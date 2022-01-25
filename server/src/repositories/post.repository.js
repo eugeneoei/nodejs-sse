@@ -12,13 +12,6 @@ class PostRepository {
         this.postsLimit = POST_LIMIT
     }
 
-    // async getPosts() {
-    //     const posts = await this.postModel
-    //         .find()
-    //         .populate([userReference(), commentReference()])
-    //     return posts
-    // }
-
     async getPosts(queryFilters, queryOptions) {
         const options = {
             ...queryOptions,
@@ -33,12 +26,12 @@ class PostRepository {
         return posts
     }
 
-    // async getPaginatedPosts(page) {
-    //     const posts = await this.postModel
-    //         .find()
-    //         .populate([userReference(), commentPaginatedReference(page)])
-    //     return posts
-    // }
+    async getPostById(id) {
+        const post = await this.postModel
+            .findById(id)
+            .populate([userReference(), commentReference()])
+        return post
+    }
 
     async createPost({ userId, content }) {
         const newPost = await this.postModel.create({

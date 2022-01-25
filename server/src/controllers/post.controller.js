@@ -30,7 +30,15 @@ const postController = app => {
     })
 
     router.get('/:id', async (req, res) => {
-        res.send('GET one post success.')
+        try {
+            const postId = req.params.id
+            const post = await postService.getPostById(postId)
+            res.json(post)
+        } catch (error) {
+            res.status(400).json({
+                error: error.message
+            })
+        }
     })
 
     router.post('', validatePostCreation, async (req, res) => {

@@ -10,27 +10,21 @@ const formatUser = user => {
 }
 
 const formatPosts = posts => {
-    return posts.map(post => {
-        const formattedPost = formatPost(post)
-        const formattedUser = formatUser(post.user)
-        const formattedComments = formatComments(post.comments)
-        return {
-            ...formattedPost,
-            user: formattedUser,
-            comments: formattedComments
-        }
-    })
+    return posts.map(post => formatPost(post))
 }
 
 const formatPost = post => {
     const id = post._id
-    const { content, likes, comments, createdAt } = post
+    const { user, content, likes, comments, createdAt } = post
+    const formattedUser = formatUser(user)
+    const formattedComments = formatComments(comments)
     return {
         id,
         content,
         likes,
-        comments,
-        createdAt
+        createdAt,
+        user: formattedUser,
+        comments: formattedComments
     }
 }
 

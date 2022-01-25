@@ -1,35 +1,30 @@
 const { PostRepository } = require('../repositories/post.repository')
 const { formatPosts, formatPost } = require('../utils/formatter.utils')
-const { POST_LIMIT } = require('../constants/post.constant')
-
-const VALID_FILTERS_MAPPING = {
-    userId: {
-        property: 'user'
-    }
-}
-const POST_OPTIONS_MAPPING = {
-    page: {
-        property: 'skip',
-        convert: data => POST_LIMIT * (parseInt(data) - 1)
-    }
-}
+const {
+    POSTS_FILTERS_MAPPING,
+    POST_OPTIONS_MAPPING
+} = require('../constants/post.constant')
 
 class PostService {
     constructor() {
         this.postRepository = new PostRepository()
-        this.validFiltersMapping = VALID_FILTERS_MAPPING
-        this.postOptionsMapping = POST_OPTIONS_MAPPING
     }
 
     async getPosts(query) {
-        const queryFilters = this.generateFilters(query)
-        const queryOptions = this.generateOptions(query)
+        const queryFilters = this.generateFilters(query, POSTS_FILTERS_MAPPING)
+        const queryOptions = this.generateOptions(query, POST_OPTIONS_MAPPING)
         const posts = await this.postRepository.getPosts(
             queryFilters,
             queryOptions
         )
         const formattedPosts = formatPosts(posts)
         return formattedPosts
+    }
+
+    async getPostById(id) {
+        const post = await this.postRepository.getPostById(id)
+        const formattedPost = formatPost(post)
+        return formattedPost
     }
 
     async createPost({ userId, content }) {
@@ -49,11 +44,11 @@ class PostService {
         return updatedPost
     }
 
-    generateFilters(query) {
+    generateFilters(query, filtersMapping) {
         const filters = {}
         for (const [key, value] of Object.entries(query)) {
-            if (key in this.validFiltersMapping) {
-                const filterMapping = this.validFiltersMapping[key]
+            if (key in filtersMapping) {
+                const filterMapping = filtersMapping[key]
                 const filterProperty = filterMapping.property
                 filters[filterProperty] = value
             }
@@ -61,11 +56,11 @@ class PostService {
         return filters
     }
 
-    generateOptions(query) {
+    generateOptions(query, optionsMapping) {
         const options = {}
         for (const [key, value] of Object.entries(query)) {
-            if (key in this.postOptionsMapping) {
-                const optionMapping = this.postOptionsMapping[key]
+            if (key in optionsMapping) {
+                const optionMapping = optionsMapping[key]
                 const optionProperty = optionMapping.property
                 const data = optionMapping.convert(value)
                 options[optionProperty] = data
