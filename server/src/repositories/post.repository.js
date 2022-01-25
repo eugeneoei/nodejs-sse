@@ -56,6 +56,9 @@ class PostRepository {
             {
                 $push: {
                     comments: commentId
+                },
+                $inc: {
+                    numberOfComments: 1
                 }
             }
         )

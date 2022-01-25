@@ -26,6 +26,10 @@ const postSchema = new Schema(
                 ref: Comment
             }
         ],
+        numberOfComments: {
+            type: Number,
+            default: 0
+        },
         createdAt: {
             type: Number
         },
