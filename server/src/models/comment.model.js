@@ -1,11 +1,12 @@
 const mongoose = require('mongoose')
 const { Schema, model } = mongoose
+const User = require('./user.model')
 
 const commentSchema = new Schema(
     {
         user: {
             type: Schema.Types.ObjectId,
-            ref: 'User',
+            ref: User,
             required: true
         },
         content: {
@@ -26,6 +27,4 @@ const commentSchema = new Schema(
     }
 )
 
-const Comment = model('Comment', commentSchema)
-
-module.exports = { Comment }
+module.exports = model('Comment', commentSchema)

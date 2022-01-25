@@ -1,6 +1,6 @@
 require('dotenv').config()
-const { initialiaseExpress } = require('./src/loaders/express.loader')
 const { initialiseMongoose } = require('./src/loaders/mongoose.loader')
+const { initialiaseExpress } = require('./src/loaders/express.loader')
 
 const init = async () => {
     try {

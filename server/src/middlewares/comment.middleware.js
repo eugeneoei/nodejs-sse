@@ -1,11 +1,11 @@
 const { checkPropertiesExist } = require('../utils/validation.utils')
 
-const REQUIRED_POST_CREATION_PROPERTIES = ['content']
+const REQUIRED_COMMENT_CREATION_PROPERTIES = ['content']
 
-const validatePostCreation = (req, res, next) => {
+const validateCommentCreation = (req, res, next) => {
     try {
         const data = req.body
-        checkPropertiesExist(data, REQUIRED_POST_CREATION_PROPERTIES)
+        checkPropertiesExist(data, REQUIRED_COMMENT_CREATION_PROPERTIES)
         next()
     } catch (error) {
         res.status(400).json({
@@ -15,5 +15,5 @@ const validatePostCreation = (req, res, next) => {
 }
 
 module.exports = {
-    validatePostCreation
+    validateCommentCreation
 }

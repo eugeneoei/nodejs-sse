@@ -3,7 +3,7 @@ const {
     doesPasswordAndStoredPasswordMatch
 } = require('../utils/password.utils')
 const { generateToken } = require('../utils/jwt.utils')
-const { formatUserData } = require('../utils/data-formatter.utils')
+const { formatUser } = require('../utils/formatter.utils')
 
 INVALID_CREDENTIALS_MESSAGE = 'Invalid email or password.'
 
@@ -25,7 +25,7 @@ class AuthenticationService {
             password
         )
         if (areCrendentialsValid) {
-            const formattedUser = formatUserData(user)
+            const formattedUser = formatUser(user)
             return formattedUser
         }
         throw new Error(INVALID_CREDENTIALS_MESSAGE)

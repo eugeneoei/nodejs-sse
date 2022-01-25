@@ -1,4 +1,4 @@
-const { User } = require('../models/user.model')
+const User = require('../models/user.model')
 
 class UserRepository {
     constructor() {
@@ -17,6 +17,12 @@ class UserRepository {
 
     async getUserById(id) {
         const user = await this.userModel.findById(id)
+        // [
+        //     '_id',
+        //     'firstName',
+        //     'lastName',
+        //     'profilePicture'
+        // ]
         return user
     }
 }

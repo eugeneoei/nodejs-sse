@@ -1,6 +1,6 @@
 const { UserRepository } = require('../repositories/user.repository')
 const { generateSalt, hashPassword } = require('../utils/password.utils')
-const { formatUserData } = require('../utils/data-formatter.utils')
+const { formatUser } = require('../utils/formatter.utils')
 
 class UserService {
     constructor() {
@@ -21,13 +21,13 @@ class UserService {
             salt,
             hash
         })
-        const formattedNewUser = formatUserData(newUser)
+        const formattedNewUser = formatUser(newUser)
         return formattedNewUser
     }
 
     async getUserById(id) {
         const user = await this.userRepository.getUserById(id)
-        const formattedUser = formatUserData(user)
+        const formattedUser = formatUser(user)
         return formattedUser
     }
 }
