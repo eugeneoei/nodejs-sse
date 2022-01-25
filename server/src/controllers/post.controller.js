@@ -1,7 +1,7 @@
 const express = require('express')
 const { PostService } = require('../services/post.service')
 const { CommentService } = require('../services/comment.service')
-const { ImageKitService } = require('../services/imagekit.service')
+const { ImageService } = require('../services/image.service')
 const { UserService } = require('../services/user.service')
 const { isAuthenticated } = require('../middlewares/authorisation.middleware')
 const { validatePostCreation } = require('../middlewares/post.middleware')
@@ -13,7 +13,7 @@ const postController = app => {
     const postService = new PostService()
     const userService = new UserService()
     const commentService = new CommentService()
-    const imageService = new ImageKitService()
+    const imageService = new ImageService()
 
     app.use('/posts', isAuthenticated, router)
 

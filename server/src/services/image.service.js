@@ -2,7 +2,7 @@ const imagekit = require('imagekit')
 const { nanoid } = require('nanoid')
 const { imagekitConfig } = require('../config/imagekit.config')
 
-class ImageKitService {
+class ImageService {
     constructor() {
         this.imagekit = new imagekit(imagekitConfig)
     }
@@ -19,4 +19,4 @@ class ImageKitService {
     }
 }
 
-module.exports = { ImageKitService }
+module.exports = { ImageService }

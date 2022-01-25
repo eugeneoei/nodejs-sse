@@ -3,7 +3,7 @@ const multer = require('multer')
 const profilePictureUpload = multer().single('profilePicture')
 const { AuthenticationService } = require('../services/authentication.service')
 const { UserService } = require('../services/user.service')
-const { ImageKitService } = require('../services/imagekit.service')
+const { ImageService } = require('../services/image.service')
 const {
     validateUserRegistration,
     validateLogin
@@ -16,7 +16,7 @@ const authenticationController = app => {
 
     const authenticationService = new AuthenticationService()
     const userService = new UserService()
-    const imageService = new ImageKitService()
+    const imageService = new ImageService()
 
     app.use('/auth', router)
 
