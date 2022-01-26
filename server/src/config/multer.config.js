@@ -1,5 +1,7 @@
 const multerConfig = {
-    registrationImageUploadLimit: 1,
+    registration: {
+        name: 'profilePicture'
+    },
     postImages: {
         limit: 5,
         name: 'images'

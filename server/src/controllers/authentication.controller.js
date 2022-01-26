@@ -1,6 +1,4 @@
 const express = require('express')
-const multer = require('multer')
-const profilePictureUpload = multer().single('profilePicture')
 const { AuthenticationService } = require('../services/authentication.service')
 const { UserService } = require('../services/user.service')
 const { ImageService } = require('../services/image.service')
@@ -9,6 +7,7 @@ const {
     validateLogin
 } = require('../middlewares/authentication.middleware')
 const { isAuthenticated } = require('../middlewares/authorisation.middleware')
+const { profileImageUpload } = require('../middlewares/image-upload.middleware')
 const { cookieConfig } = require('../config/cookie.config')
 
 const authenticationController = app => {
@@ -22,7 +21,7 @@ const authenticationController = app => {
 
     router.post(
         '/register',
-        profilePictureUpload,
+        profileImageUpload,
         validateUserRegistration,
         async (req, res) => {
             try {

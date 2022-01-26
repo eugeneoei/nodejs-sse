@@ -1,10 +1,4 @@
 const express = require('express')
-const { multerConfig } = require('../config/multer.config')
-const multer = require('multer')
-const postImagesUpload = multer().array(
-    multerConfig.postImages.name,
-    multerConfig.postImages.limit
-)
 const { PostService } = require('../services/post.service')
 const { CommentService } = require('../services/comment.service')
 const { ImageService } = require('../services/image.service')
@@ -12,6 +6,7 @@ const { UserService } = require('../services/user.service')
 const { isAuthenticated } = require('../middlewares/authorisation.middleware')
 const { validatePostCreation } = require('../middlewares/post.middleware')
 const { validateCommentCreation } = require('../middlewares/comment.middleware')
+const { postImagesUpload } = require('../middlewares/image-upload.middleware')
 
 const postController = app => {
     const router = express.Router()
