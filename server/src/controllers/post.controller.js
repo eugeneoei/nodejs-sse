@@ -35,7 +35,7 @@ const postController = app => {
             const post = await postService.getPostById(postId)
             res.json(post)
         } catch (error) {
-            res.status(400).json({
+            res.status(404).json({
                 error: error.message
             })
         }
@@ -99,17 +99,30 @@ const postController = app => {
         }
     })
 
-    router.patch('/:id/like', (req, res) => {
-        // todo: validate the fact that user cannot like own post
-        res.json({
-            message: 'PATCH post like success'
-        })
+    router.patch('/:id/like', async (req, res) => {
+        try {
+            const userId = req.user.id
+            const postId = req.params.id
+            const updatedPost = await postService.likePost(postId, userId)
+            res.json(updatedPost)
+        } catch (error) {
+            res.status(400).json({
+                error: error.message
+            })
+        }
     })
 
-    router.patch('/:id/unlike', (req, res) => {
-        res.json({
-            message: 'PATCH post unlike success'
-        })
+    router.patch('/:id/unlike', async (req, res) => {
+        try {
+            const userId = req.user.id
+            const postId = req.params.id
+            const updatedPost = await postService.unlikePost(postId, userId)
+            res.json(updatedPost)
+        } catch (error) {
+            res.status(400).json({
+                error: error.message
+            })
+        }
     })
 }
 

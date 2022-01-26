@@ -15,17 +15,26 @@ const formatPosts = posts => {
 
 const formatPost = post => {
     const id = post._id
-    const { user, content, likes, comments, numberOfComments, createdAt } = post
+    const {
+        user,
+        content,
+        likes,
+        likesCount,
+        comments,
+        commentsCount,
+        createdAt
+    } = post
     const formattedUser = formatUser(user)
     const formattedComments = formatComments(comments)
     return {
         id,
         content,
         likes,
+        likesCount,
         createdAt,
         user: formattedUser,
         comments: formattedComments,
-        numberOfComments
+        commentsCount
     }
 }
 

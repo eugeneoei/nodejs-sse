@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const { mongooseConfig } = require('../config/mongoose.config')
+mongoose.set('returnOriginal', false)
 
 const initialiseMongoose = async () => {
     const connection = mongoose.connection

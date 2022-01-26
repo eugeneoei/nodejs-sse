@@ -48,20 +48,39 @@ class PostRepository {
         return post.comments
     }
 
-    async updatePostComments(postId, commentId) {
-        const updatedPost = await this.postModel.updateOne(
-            {
-                _id: postId
+    async addUserToPostComments(postId, commentId) {
+        const updatedPost = await this.postModel.findByIdAndUpdate(postId, {
+            $push: {
+                comments: commentId
             },
-            {
-                $push: {
-                    comments: commentId
-                },
-                $inc: {
-                    numberOfComments: 1
-                }
+            $inc: {
+                commentsCount: 1
             }
-        )
+        })
+        return updatedPost
+    }
+
+    async addUserToPostLikesAndIncreaseLikesCount(postId, userId) {
+        const updatedPost = await this.postModel.findByIdAndUpdate(postId, {
+            $push: {
+                likes: userId
+            },
+            $inc: {
+                likesCount: 1
+            }
+        })
+        return updatedPost
+    }
+
+    async removeUserFromPostLikesAndDecreaseLikesCount(postId, userId) {
+        const updatedPost = await this.postModel.findByIdAndUpdate(postId, {
+            $pull: {
+                likes: userId
+            },
+            $inc: {
+                likesCount: -1
+            }
+        })
         return updatedPost
     }
 }
