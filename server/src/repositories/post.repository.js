@@ -33,10 +33,11 @@ class PostRepository {
         return post
     }
 
-    async createPost({ userId, content }) {
+    async createPost({ userId, content, images }) {
         const newPost = await this.postModel.create({
             user: userId,
-            content
+            content,
+            images
         })
         return newPost
     }

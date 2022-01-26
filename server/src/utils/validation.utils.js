@@ -1,4 +1,5 @@
 const { isEmail, isStrongPassword } = require('validator')
+const { multerConfig } = require('../config/multer.config')
 
 const checkProfilePicturePropertyExist = file => {
     if (!file) {
@@ -27,9 +28,17 @@ const validatePasswordStrength = password => {
     }
 }
 
+const checkPostImagesPropertyExist = files => {
+    const hasZeroFiles = files.length === 0
+    if (hasZeroFiles) {
+        throw new Error(`Missing "${multerConfig.postImages.name}" property`)
+    }
+}
+
 module.exports = {
     checkProfilePicturePropertyExist,
     checkPropertiesExist,
     isEmailValid,
-    validatePasswordStrength
+    validatePasswordStrength,
+    checkPostImagesPropertyExist
 }

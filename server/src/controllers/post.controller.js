@@ -1,4 +1,10 @@
 const express = require('express')
+const { multerConfig } = require('../config/multer.config')
+const multer = require('multer')
+const postImagesUpload = multer().array(
+    multerConfig.postImages.name,
+    multerConfig.postImages.limit
+)
 const { PostService } = require('../services/post.service')
 const { CommentService } = require('../services/comment.service')
 const { ImageService } = require('../services/image.service')
@@ -41,25 +47,33 @@ const postController = app => {
         }
     })
 
-    router.post('', validatePostCreation, async (req, res) => {
-        try {
-            const userId = req.user.id
-            const { content } = req.body
-            const post = await postService.createPost({
-                userId,
-                content
-            })
-            const user = await userService.getUserById(userId)
-            res.json({
-                ...post,
-                user
-            })
-        } catch (error) {
-            res.status(400).json({
-                error: error.message
-            })
+    router.post(
+        '',
+        postImagesUpload,
+        validatePostCreation,
+        async (req, res) => {
+            try {
+                const userId = req.user.id
+                const { content } = req.body
+                const files = req.files
+                const images = await imageService.uploadMultipleFiles(files)
+                const post = await postService.createPost({
+                    userId,
+                    content,
+                    images
+                })
+                const user = await userService.getUserById(userId)
+                res.json({
+                    ...post,
+                    user
+                })
+            } catch (error) {
+                res.status(400).json({
+                    error: error.message
+                })
+            }
         }
-    })
+    )
 
     router.get('/:id/comments', async (req, res) => {
         try {

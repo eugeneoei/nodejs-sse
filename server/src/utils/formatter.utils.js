@@ -18,6 +18,7 @@ const formatPost = post => {
     const {
         user,
         content,
+        images,
         likes,
         likesCount,
         comments,
@@ -29,6 +30,7 @@ const formatPost = post => {
     return {
         id,
         content,
+        images,
         likes,
         likesCount,
         createdAt,

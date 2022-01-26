@@ -60,10 +60,11 @@ class PostService {
         throw new Error('Post does not exist.')
     }
 
-    async createPost({ userId, content }) {
+    async createPost({ userId, content, images }) {
         const newPost = await this.postRepository.createPost({
             userId,
-            content
+            content,
+            images
         })
         const formattedNewPost = formatPost(newPost)
         return formattedNewPost

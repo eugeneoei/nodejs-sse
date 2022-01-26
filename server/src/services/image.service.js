@@ -17,6 +17,19 @@ class ImageService {
         const imageUrl = response.url
         return imageUrl
     }
+
+    async uploadMultipleFiles(files) {
+        const promises = files.map(async file => await this.upload(file))
+        const responses = await Promise.all(promises)
+        const imageUrls = responses.map(response => {
+            const imageId = nanoid()
+            return {
+                id: imageId,
+                url: response
+            }
+        })
+        return imageUrls
+    }
 }
 
 module.exports = { ImageService }
