@@ -1,19 +1,7 @@
-```js
-const dayjs = require('dayjs')
-const relativeTime = require('dayjs/plugin/relativeTime')
-dayjs.extend(relativeTime)
+# NodeJS SSE Client
 
-// const ts = Math.floor(1643012098752 / 1000)
-// const createdAt = dayjs.unix(ts)
-const ts = 1643012098752
-const createdAt = dayjs(ts)
+https://stackoverflow.com/questions/63067555/how-to-make-an-import-shortcut-alias-in-create-react-app
 
-const now = dayjs()
+https://www.taniarascia.com/react-architecture-directory-structure/
 
-const timeFromTs = now.to(createdAt)
-
-console.log(timeFromTs)
-console.log('D/MM/YYYY >>', createdAt.format('D MMM YYYY h:m:s A'))
-
-// console.log(timeFromTs.format('L LT'))
-```
+https://dev.to/nilanth/react-architecture-for-enterprise-application-3pnh

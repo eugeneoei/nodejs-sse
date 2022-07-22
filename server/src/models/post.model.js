@@ -47,7 +47,7 @@ const postSchema = new Schema(
     },
     {
         timestamps: {
-            currentTime: () => Date.now()
+            currentTime: () => Math.floor(Date.now() / 1000)
         }
     }
 )

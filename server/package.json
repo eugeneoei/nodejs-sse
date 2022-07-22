@@ -5,7 +5,8 @@
     "main": "server.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "ENVIRONMENT=development nodemon server.js"
+        "dev": "ENVIRONMENT=development nodemon server.js",
+        "start:db": "mongod -dbpath data"
     },
     "author": "",
     "license": "ISC",
